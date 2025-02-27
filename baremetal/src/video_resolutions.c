@@ -40,6 +40,7 @@
 
 VideoTiming_t VideoTimingClk[SUPPORTED_VIDEO_FORMATS]=
 {
+		{XVIDC_VM_1920x1080_60_P, 	CLKWIZ_CLKOUT0_148_5_MHz},
 		{XVIDC_VM_1280x720_60_P, 	CLKWIZ_CLKOUT0_74_25_MHz},
 		{XVIDC_VM_1024x768_60_P,	CLKWIZ_CLKOUT0_65_MHz},
 		{XVIDC_VM_800x600_60_P,		CLKWIZ_CLKOUT0_40_MHz},
@@ -93,6 +94,64 @@ int ClkWiz_Set_Output_Clock(UINTPTR ClkWiz_BaseAddr, int resId)
 	Xil_Out32(ClkWiz_BaseAddr, 0xA);
 	usleep(800);
 
+	// 150MHz
+	switch(outClockFreq)
+	{
+		case CLKWIZ_CLKOUT0_148_5_MHz:
+			//Set clock to 148.5 MHz
+			// [7:0] = DIVCLK_DIVIDE = 2 (0x02)
+			// [15:8] = CLKFBOUT_MULT = 12 (0x0C)
+			// [25:16] = CLKFBOUT_FRAC = 375 (0x177)
+			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x1770C02);
+			// DIV = 6.250 (0x06.0x0FA)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x0FA06);
+			break;
+
+		case CLKWIZ_CLKOUT0_74_25_MHz:
+			//Set clock to 74.25 MHz
+			// [7:0] = DIVCLK_DIVIDE = 2 (0x02)
+			// [15:8] = CLKFBOUT_MULT = 12 (0x0C)
+			// [25:16] = CLKFBOUT_FRAC = 375 (0x177)
+			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x1770C02);
+			// DIV = 12.500 (0x0C.0x1F4)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x1F40C);
+			break;
+
+		case CLKWIZ_CLKOUT0_65_MHz:
+			//Set clock to 65 MHz
+			// [7:0] = DIVCLK_DIVIDE = 6 (0x06)
+			// [15:8] = CLKFBOUT_MULT = 40 (0x28)
+			// [25:16] = CLKFBOUT_FRAC = 625 (0x271)
+			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x2712806);
+			// DIV = 15.625 (0x0F.0x271)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x2710F);
+			break;
+
+		case CLKWIZ_CLKOUT0_40_MHz:
+			//Set clock to 40 MHz
+			// [7:0] = DIVCLK_DIVIDE = 3 (0x03)
+			// [15:8] = CLKFBOUT_MULT = 20 (0x14)
+			// [25:16] = CLKFBOUT_FRAC = 0 (0x0)
+			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x001403);
+			// DIV = 25.000 (0x19.0x00)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x19);
+			break;
+
+		case CLKWIZ_CLKOUT0_25_175MHz:
+			//Set clock to 25.175 MHz
+			// [7:0] = DIVCLK_DIVIDE = 14 (0x0e)
+			// [15:8] = CLKFBOUT_MULT = 59 (0x38)
+			// [25:16] = CLKFBOUT_FRAC = 625 (0x271)
+			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x271380e);
+			// DIV = 25.375 (0x19.0x177)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x17719);
+			break;
+		default:
+			return XST_FAILURE;
+			break;
+	}
+	
+	/* // 100MHz clk
 	switch(outClockFreq)
 	{
 		case CLKWIZ_CLKOUT0_74_25_MHz:
@@ -101,8 +160,8 @@ int ClkWiz_Set_Output_Clock(UINTPTR ClkWiz_BaseAddr, int resId)
 			// [15:8] = CLKFBOUT_MULT = 37 (0x25)
 			// [25:16] = CLKFBOUT_FRAC = 125 (0x7D)
 			Xil_Out32(ClkWiz_BaseAddr + 0x200, 0x7D2504);
-			// DIV = 12.500 (0x0C.0x1FA)
-			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x1FA0C);
+			// DIV = 12.500 (0x0C.0x1F4)
+			Xil_Out32(ClkWiz_BaseAddr + 0x208, 0x1F40C);
 			break;
 
 		case CLKWIZ_CLKOUT0_65_MHz:
@@ -137,7 +196,8 @@ int ClkWiz_Set_Output_Clock(UINTPTR ClkWiz_BaseAddr, int resId)
 		default:
 			return XST_FAILURE;
 			break;
-	}
+	} */
+   
 
 	// Update the clocking wizard
 	Xil_Out32(ClkWiz_BaseAddr + 0x25C, 0x3);

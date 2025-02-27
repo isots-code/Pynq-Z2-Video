@@ -64,7 +64,7 @@ int main()
 	usleep(200);
 	
 	//Set Stream In
-	VmPtr=XVidC_GetVideoModeData(XVIDC_VM_1280x720_60_P);
+	VmPtr=XVidC_GetVideoModeData(XVIDC_VM_1920x1080_60_P);
 	TpgConfig.colorFormat = XVIDC_CSF_RGB;
 	TpgConfig.bckgndId = XTPG_BKGND_COLOR_BARS;
 	TpgConfig.width = VmPtr->Timing.HActive;

@@ -58,7 +58,7 @@ int main_menu()
 
 	userInput = userInput-48;
 
-	if((userInput>= 0)&&(userInput <= 3))
+	if((userInput>= 0)&&(userInput <= 4))
 	{
 		xil_printf("Selected Resolution: %s",XVidC_GetVideoModeStr(get_video_mode_id(userInput)));
 		return (userInput);

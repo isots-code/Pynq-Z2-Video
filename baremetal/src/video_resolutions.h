@@ -40,15 +40,16 @@
 #ifndef _VIDEO_RESOLUTIONS_H_
 #define _VIDEO_RESOLUTIONS_H_
 
-	#define SUPPORTED_VIDEO_FORMATS 4
+	#define SUPPORTED_VIDEO_FORMATS 5
 
 	#define CLK_LOCK			1
 
 	//Video clocks
-	#define CLKWIZ_CLKOUT0_74_25_MHz		0
-	#define CLKWIZ_CLKOUT0_65_MHz			1
-	#define CLKWIZ_CLKOUT0_40_MHz			2
-	#define	CLKWIZ_CLKOUT0_25_175MHz		3
+	#define CLKWIZ_CLKOUT0_148_5_MHz		0
+	#define CLKWIZ_CLKOUT0_74_25_MHz		1
+	#define CLKWIZ_CLKOUT0_65_MHz			2
+	#define CLKWIZ_CLKOUT0_40_MHz			3
+	#define	CLKWIZ_CLKOUT0_25_175MHz		4
 
 	typedef struct {
 			XVidC_VideoMode		VmId;

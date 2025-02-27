@@ -1,0 +1,6 @@
+hw/.Xil
+hw/hw_proj
+hw/NA
+hw/vivado*
+hw/*.xsa
+baremetal/vitis_workspace
